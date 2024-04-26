@@ -12,6 +12,10 @@ ZMPT101B voltageSensor(A2, 50.0);
 // EnergyMonitor instance for current measurement
 EnergyMonitor emon1;
 
+// Variables for low-pass filter
+double filteredPowerFactor = 0.0;
+const double alpha = 0.2; // Smoothing factor for the low-pass filter
+
 void setup() {
     Serial.begin(115200);
 
@@ -45,6 +49,9 @@ void loop() {
     double reactivePower = (pow(apparentPower, 2) - pow(realPower, 2));
     double powerFactor = realPower / apparentPower;
 
+    // Apply low-pass filter to the power factor
+    filteredPowerFactor = (alpha * powerFactor) + ((1 - alpha) * filteredPowerFactor);
+
     // Print the values
     Serial.print("Vrms: ");
     Serial.print(Vrms);
@@ -55,7 +62,7 @@ void loop() {
     Serial.print(" VA, Real Power: ");
     Serial.print(realPower);
     Serial.print(" W, Power Factor: ");
-    Serial.print(powerFactor); // Print filtered power factor
+    Serial.print(filteredPowerFactor); // Print filtered power factor
     Serial.print(" , Reactive Power: ");
     Serial.print(reactivePower);
     Serial.println(" VAR");
