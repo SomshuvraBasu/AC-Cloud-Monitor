@@ -1,7 +1,7 @@
 #define RX2 16
 #define TX2 17
-#define BLYNK_TEMPLATE_ID "" // define your template id
-#define BLYNK_TEMPLATE_NAME "" //define your template name
+#define BLYNK_TEMPLATE_ID "" // define your template id as shown on BLYNK
+#define BLYNK_TEMPLATE_NAME "" //define your template name as shown on BLYNK
 #include "secrets.h" //define your secrets
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
